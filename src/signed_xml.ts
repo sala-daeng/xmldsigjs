@@ -267,8 +267,6 @@ export class SignedXml implements XmlCore.IXmlSerializable {
                 continue;
             }
             target.setAttribute("xmlns" + (i ? ":" + i : ""), uri);
-            console.log('target', target)
-            console.log("xmlns" + (i ? ":" + i : ""), uri)
         }
     }
 
