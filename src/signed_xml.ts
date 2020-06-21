@@ -357,6 +357,7 @@ export class SignedXml implements XmlCore.IXmlSerializable {
             throw new XmlCore.XmlError(XmlCore.XE.NULL_PARAM, "Reference", "DigestMethod");
         }
         const digest = CryptoConfig.CreateHashAlgorithm(reference.DigestMethod.Algorithm);
+        console.log('canonOutput', canonOutput)
         return digest.Digest(canonOutput);
     }
 
