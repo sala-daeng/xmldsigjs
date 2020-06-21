@@ -253,6 +253,7 @@ export class SignedXml implements XmlCore.IXmlSerializable {
      * Copies namespaces from source element and its parents into destination element
      */
     protected CopyNamespaces(src: Element, dst: Element, ignoreDefault: boolean): void {
+        console.log('CopyNamespaces', src)
         // this.InjectNamespaces(XmlCore.SelectNamespaces(src), dst, ignoreDefault);
         this.InjectNamespaces(SelectRootNamespaces(src), dst, ignoreDefault);
     }
