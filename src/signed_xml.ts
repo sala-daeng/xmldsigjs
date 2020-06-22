@@ -342,11 +342,13 @@ export class SignedXml implements XmlCore.IXmlSerializable {
             // we must not C14N references from outside the document
             // e.g. non-xml documents
             if (reference.Uri && reference.Uri[0] !== `#`) {
+                console.log('###### WWWWW XMLSerializer', doc)
                 if (!doc.ownerDocument) {
                     throw new Error("Cannot get ownerDocument from XML document");
                 }
                 canonOutput = new XMLSerializer().serializeToString(doc.ownerDocument);
             } else {
+                console.log('###### WWWWW excC14N', doc)
                 // apply default C14N transformation
                 const excC14N = new Transforms.XmlDsigC14NTransform();
                 excC14N.LoadInnerXml(doc);
@@ -358,7 +360,7 @@ export class SignedXml implements XmlCore.IXmlSerializable {
             throw new XmlCore.XmlError(XmlCore.XE.NULL_PARAM, "Reference", "DigestMethod");
         }
         const digest = CryptoConfig.CreateHashAlgorithm(reference.DigestMethod.Algorithm);
-        console.log('canonOutput', canonOutput)
+        console.log('CCCCCCCCC canonOutput', canonOutput)
         return digest.Digest(canonOutput);
     }
 
