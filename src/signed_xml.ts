@@ -421,6 +421,7 @@ export class SignedXml implements XmlCore.IXmlSerializable {
             }
             node.setAttribute("xmlns" + (i ? ":" + i : ""), uri);
         }
+        console.log('TransformSignedInfo node', node)
         t.LoadInnerXml(node);
         const res = t.GetOutput();
         return res;
