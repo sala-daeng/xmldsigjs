@@ -171,12 +171,22 @@ export class X509Certificate {
      */
     protected NameToString(name: any, splitter: string = ","): string {
         const res: string[] = [];
-        name.typesAndValues.forEach((typeAndValue: any) => {
+        // name.typesAndValues.forEach((typeAndValue: any) => {
+        //     const type = typeAndValue.type;
+        //     const oid = OID[type.toString()];
+        //     const name2 = oid ? oid.short : null;
+        //     res.push(`${name2 ? name2 : type}=${typeAndValue.value.valueBlock.value}`);
+        // });
+        // FIX
+        for (let i=0; i<name.typesAndValues.length; i++) {
+            const typeAndValue = name.typesAndValues[i]
+            if (!typeAndValue) { continue; }
             const type = typeAndValue.type;
             const oid = OID[type.toString()];
             const name2 = oid ? oid.short : null;
             res.push(`${name2 ? name2 : type}=${typeAndValue.value.valueBlock.value}`);
-        });
+        }
+
         return res.join(splitter + " ");
     }
 
