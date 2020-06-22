@@ -337,6 +337,7 @@ export class SignedXml implements XmlCore.IXmlSerializable {
 
         let canonOutput: any = null;
         if (reference.Transforms && reference.Transforms.Count) {
+            console.log('###### WWWWW ApplyTransforms', doc)
             canonOutput = this.ApplyTransforms(reference.Transforms, doc);
         } else {
             // we must not C14N references from outside the document
