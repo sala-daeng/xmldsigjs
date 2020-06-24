@@ -169,16 +169,49 @@ export class X509Certificate {
      * Example:
      * > C=Some name, O=Some organization name, C=RU
      */
+    // protected NameToString(name: any, splitter: string = ","): string {
+    //     const res: string[] = [];
+    //     name.typesAndValues.forEach((typeAndValue: any) => {
+    //         const type = typeAndValue.type;
+    //         const oid = OID[type.toString()];
+    //         const name2 = oid ? oid.short : null;
+    //         res.push(`${name2 ? name2 : type}=${typeAndValue.value.valueBlock.value}`);
+    //     });
+    //     return res.join(splitter + " ");
+    // }
+    // XXXXXXXXXXXX
+    // HACK FIX order of C O CN 
     protected NameToString(name: any, splitter: string = ","): string {
         const res: string[] = [];
+        let xC = '';
+        let xO = '';
+        let xCN = '';
+
         name.typesAndValues.forEach((typeAndValue: any) => {
             const type = typeAndValue.type;
             const oid = OID[type.toString()];
             const name2 = oid ? oid.short : null;
-            res.push(`${name2 ? name2 : type}=${typeAndValue.value.valueBlock.value}`);
+
+            const k = name2 ? name2 : type;
+            const x = `${k}=${typeAndValue.value.valueBlock.value}`;
+            if (k == 'C') {
+                xC = x;                
+            } else if (k == 'O') {
+                xO = x;
+            } else if (k == 'CN') {
+                xCN = x;
+            } else {
+                res.push(x);
+            }
         });
+        
+        if (xC != '') { res.push(xC); }
+        if (xO != '') { res.push(xO); }
+        if (xCN != '') { res.push(xCN); }
+
         return res.join(splitter + " ");
     }
+
 
     /**
      * Loads X509Certificate from DER data
