@@ -204,10 +204,10 @@ export class X509Certificate {
                 res.push(x);
             }
         });
-        
-        if (xC != '') { res.push(xC); }
-        if (xO != '') { res.push(xO); }
-        if (xCN != '') { res.push(xCN); }
+
+        if (xCN != '') { res.unshift(xCN); }
+        if (xO != '') { res.unshift(xO); }
+        if (xC != '') { res.unshift(xC); }
 
         return res.join(splitter + " ");
     }
